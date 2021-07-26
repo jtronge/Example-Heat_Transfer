@@ -75,8 +75,8 @@ COPY setup-env.sh /
 RUN . /setup-env.sh && \
     git clone https://github.com/CODARcode/Example-Heat_Transfer.git && \
     cd Example-Heat_Transfer && \
-    sed -i -e 's/CC=cc/CC=mpicc/g' Makefile && \
-    sed -i -e 's/FC=ftn/FC=mpif90/g' Makefile && \
+    sed -i -e 's/CC=cc/CC=mpicc/g' Makefile stage_write/Makefile && \
+    sed -i -e 's/FC=ftn/FC=mpif90/g' Makefile stage_write/Makefile && \
     # sed -i -e 's/adios_config -l -f/adios_config -l/g' Makefile && \
     sed -i -e 's/use adios_write_mod//g' *.F90 && \
     # sed -i -e 's/include "mpi.h"/include <mpi.h>/g' */*.c && \
