@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t heat-transfer .
+docker build -t jtronge/heat-transfer .
