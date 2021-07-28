@@ -1,0 +1,12 @@
+heat_output: '/tmp/heat'
+stage_output: '/tmp/stage.bp'
+htproc_x: 3
+htproc_y: 4
+array_x: 40
+array_y: 50
+steps: 6
+iterations: 500
+method: 'BP'
+write_params: ''
+names: 'MPI'
+transform_params: ''

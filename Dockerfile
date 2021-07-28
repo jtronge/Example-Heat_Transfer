@@ -52,4 +52,8 @@ RUN . /setup-env.sh && \
     cd stage_write && \
     make
 
+COPY heat_transfer_adios2.sh /
+COPY stage_write.sh /
+COPY heat_transfer.xml /Example-Heat_Transfer/
+
 # TODO: Create a launch script for each binary
