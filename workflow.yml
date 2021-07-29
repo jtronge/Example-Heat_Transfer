@@ -1,5 +1,8 @@
-heat_output: '/tmp/heat'
-stage_output: '/tmp/stage.bp'
+# Be careful of absolute paths
+#heat_output: '/tmp/heat'
+#stage_output: '/tmp/stage.bp'
+heat_output: 'heat'
+stage_output: 'stage.bp'
 htproc_x: 3
 htproc_y: 4
 array_x: 40

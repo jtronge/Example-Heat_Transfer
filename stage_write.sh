@@ -6,4 +6,6 @@ spack load adios
 cd /Example-Heat_Transfer
 # export OMPI_ALLOW_RUN_AS_ROOT=1
 # TODO: Take `-n` parameter option as input on command line
-mpirun --allow-run-as-root -n 3 ./stage_write/stage_write $@
+# echo $@ 1>&2
+ls $(dirname $1) 1>&2
+mpirun --allow-run-as-root -n 3 ./stage_write/stage_write "$@"
