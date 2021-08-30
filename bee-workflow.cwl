@@ -1,6 +1,6 @@
 # BEE CWL version workflow with dummy inputs/outputs
-cwlVersion: v1.0
 class: Workflow
+cwlVersion: v1.0
 inputs:
   heat_input: string
 requirements: {}
@@ -11,7 +11,7 @@ steps:
       class: CommandLineTool
       baseCommand: "/heat_transfer_adios2.sh /tmp/heat HTPROC_X HTPROC_Y 40 50 6 500"
       requirements: {}
-      hints: {}
+      hints:
         DockerRequirement:
           dockerImageId: heat-transfer.tar.gz
       inputs:
@@ -21,7 +21,7 @@ steps:
         output:
           type: string
     in:
-      heat_input: heat_input:
+      heat_input: heat_input
     out: [output]
   stager:
     run:
@@ -30,7 +30,7 @@ steps:
       requirements: {}
       hints:
         DockerRequirement:
-          dockerImageId: heat-transfer
+          dockerImageId: heat-transfer.tar.gz
       inputs:
         heat_transfer_output:
           type: string
