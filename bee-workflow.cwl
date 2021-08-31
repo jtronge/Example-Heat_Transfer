@@ -1,4 +1,5 @@
 # BEE CWL version workflow with dummy inputs/outputs
+# TODO: Use real CWL
 class: Workflow
 cwlVersion: v1.0
 inputs:
@@ -9,7 +10,7 @@ steps:
   heat_transfer_adios2:
     run:
       class: CommandLineTool
-      baseCommand: "/heat_transfer_adios2.sh /tmp/heat HTPROC_X HTPROC_Y 40 50 6 500"
+      baseCommand: "/heat_transfer_adios2.sh"
       requirements: {}
       hints:
         DockerRequirement:
@@ -26,7 +27,7 @@ steps:
   stager:
     run:
       class: CommandLineTool
-      baseCommand: "/stage_write.sh /tmp/heat.bp /tmp/stage.bp '' MPI ''"
+      baseCommand: "/stage_write.sh"
       requirements: {}
       hints:
         DockerRequirement:
