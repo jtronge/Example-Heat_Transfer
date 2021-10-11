@@ -8,13 +8,13 @@ inputs:
   array_x: int
   array_y: int
   steps: int
-  iterations: int
+  result_var: int
+
   # write step inputs
-  method: string
+  read_method: string
+  read_params: string
+  write_method: string
   write_params: string
-  names: string
-  transform_params: string
-  # TODO
 requirements:
   InlineJavascriptRequirement: {}
 outputs: {}
@@ -58,7 +58,7 @@ steps:
           type: int
           inputBinding:
             position: 6
-        - id: iterations
+        - id: result_var
           type: int
           inputBinding:
             position: 7
@@ -74,7 +74,7 @@ steps:
       array_x: array_x
       array_y: array_y
       steps: steps
-      iterations: iterations
+      result_var: result_var
     out: [output]
   stager:
     run:
@@ -102,21 +102,19 @@ steps:
           type: string
         - id: output_path
           type: string
-          #inputBinding:
-          #  position: 2
-        - id: method
+        - id: read_method
           type: string
           inputBinding:
             position: 3
-        - id: write_params
+        - id: read_params
           type: string
           inputBinding:
             position: 4
-        - id: names
+        - id: write_method
           type: string
           inputBinding:
             position: 5
-        - id: transform_params
+        - id: write_params
           type: string
           inputBinding:
             position: 6
@@ -130,8 +128,8 @@ steps:
       heat_transfer_output: heat_transfer_adios2/output
       input_path: heat_output
       output_path: stage_output
-      method: method
+      read_method: read_method
+      read_params: read_params
+      write_method: write_method
       write_params: write_params
-      names: names
-      transform_params: transform_params
     out: [output]

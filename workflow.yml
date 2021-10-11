@@ -1,15 +1,19 @@
 # Be careful of absolute paths
 #heat_output: '/tmp/heat'
 #stage_output: '/tmp/stage.bp'
+
+# heat_transfer parameters
 heat_output: 'heat'
 stage_output: 'stage.bp'
-htproc_x: 3
-htproc_y: 4
+htproc_x: 1
+htproc_y: 1
 array_x: 40
 array_y: 50
 steps: 6
-iterations: 500
-method: 'BP'
+result_var: 500
+
+# stage_write parameters
+read_method: BP
+read_params: ''
+write_method: BP
 write_params: ''
-names: 'MPI'
-transform_params: ''

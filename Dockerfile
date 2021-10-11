@@ -1,4 +1,4 @@
-FROM debian:10
+FROM debian:11
 
 RUN apt-get -y update && \
     apt-get -y install git && \
@@ -46,14 +46,15 @@ RUN . /setup-env.sh && \
     sed -i -e 's/CC=cc/CC=mpicc/g' Makefile stage_write/Makefile && \
     sed -i -e 's/FC=ftn/FC=mpif90/g' Makefile stage_write/Makefile && \
     sed -i -e 's/use adios_write_mod//g' *.F90 && \
+    sed -i -e 's/^FFLAGS.*$/FFLAGS=-g -O3 -Wall -fcheck=bounds -fallow-argument-mismatch/g' Makefile && \
     make && \
     cd stage_write && \
     make
-    # sed -i -e 's/include "mpi.h"/include <mpi.h>/g' */*.c && \
-    # sed -i -e 's/adios_config -l -f/adios_config -l/g' Makefile && \
 
-COPY heat_transfer_adios2.sh /
-COPY stage_write.sh /
+# Copy over the workflow files
+COPY workflow/heat_transfer_adios2.sh /
+COPY workflow/stage_write.sh /
 COPY heat_transfer.xml /Example-Heat_Transfer/
 
-# TODO: Create a launch script for each binary
+RUN apt-get -y update && \
+    apt-get -y install tmux vim
