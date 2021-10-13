@@ -1,5 +1,5 @@
-CC=cc
-FC=ftn
+CC=mpicc
+FC=mpif90
 CFLAGS=-g -O3
 FFLAGS=-g -Wall -fcheck=bounds #-fcheck=array-temps
 

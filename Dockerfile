@@ -1,24 +1,10 @@
 FROM debian:11
 
 RUN apt-get -y update && \
-    apt-get -y install git && \
-    apt-get -y install curl && \
-    apt-get -y install gfortran && \
-    apt-get -y install bison && \
-    apt-get -y install flex && \
-    apt-get -y install environment-modules && \
-    apt-get -y install zlib* && \
-    apt-get -y install zsh && \
-    apt-get -y install xz-utils && \
-    apt-get -y install python3 && \
-    apt-get -y install python3-dev && \
-    apt-get -y install python3-pip && \
-    apt-get -y install build-essential && \
-    apt-get -y install cmake && \
-    apt-get -y install hdf5-tools && \
-    apt-get -y install libhdf5-dev && \
-    apt-get -y install openmpi-common && \
-    apt-get -y install libopenmpi-dev
+    apt-get -y install tmux vim git curl gfortran bison flex \
+               environment-modules zlib* zsh xz-utils python3 \
+               python3-dev python3-pip build-essential cmake hdf5-tools \
+               libhdf5-dev openmpi-common libopenmpi-dev
 
 # Install Spack
 # Setting this parameter so I don't have to create an unprivileged user
@@ -28,9 +14,9 @@ RUN git clone https://github.com/spack/spack && \
     . spack/share/spack/setup-env.sh && \
     spack compilers
 
-# Install ADIOS
+# Install ADIOS with pmix-enabled openmpi and fortran
 RUN . spack/share/spack/setup-env.sh && \
-    spack install adios +fortran
+    spack install adios+fortran ^openmpi+pmix schedulers=slurm
 
 # Install extras
 RUN . spack/share/spack/setup-env.sh && \
@@ -40,6 +26,16 @@ RUN . spack/share/spack/setup-env.sh && \
 COPY setup-env.sh /
 
 # Now try to run the program
+# Now copy over everything and install the program
+RUN mkdir /heat-transfer
+COPY ./* /heat-transfer/*
+RUN cd /heat-transfer && \
+    . ./setup-env.sh && \
+    make clean && \
+    make && \
+    make -C stage_write clean && \
+    make -C stage_write
+
 RUN . /setup-env.sh && \
     git clone https://github.com/CODARcode/Example-Heat_Transfer.git && \
     cd Example-Heat_Transfer && \
@@ -52,9 +48,11 @@ RUN . /setup-env.sh && \
     make
 
 # Copy over the workflow files
-COPY workflow/heat_transfer_adios2.sh /
-COPY workflow/stage_write.sh /
-COPY heat_transfer.xml /Example-Heat_Transfer/
+# COPY workflow/heat_transfer_adios2.sh /
+# COPY workflow/stage_write.sh /
+# COPY heat_transfer.xml /Example-Heat_Transfer/
 
-RUN apt-get -y update && \
-    apt-get -y install tmux vim
+#RUN apt-get -y update && \
+#    apt-get -y install tmux vim
+
+## spack install adios+fortran ^openmpi+pmix schedulers=slurm
