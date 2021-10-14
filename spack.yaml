@@ -1,0 +1,7 @@
+spack:
+  specs:
+    - adios+fortran ^openmpi+pmix schedulers=slurm
+    - stc 
+    - turbine
+    - dataspaces
+  concretization: together
